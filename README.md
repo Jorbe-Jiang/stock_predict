@@ -119,5 +119,5 @@
 ## 代码运行说明
 - 训练过程：在**configs/config.json**设置好超参数，以及在**run_train.sh**文件设置好一些基本参数后，运行```bash run_train.sh```
 - 验证过程：在**run_valid.sh**文件设置好一些基本参数后，运行```bash run_valid.sh```
-    ```验证过程结束后，在/ckpts/huangshan/plots/文件夹里查看在验证集上预测的结果, predictions.txt文件会记录具体的预测值，映射值以及ground truth value```
+    - ```验证过程结束后，在/ckpts/huangshan/plots/文件夹里查看在验证集上预测的结果, predictions.txt文件会记录具体的预测值，映射值以及ground truth value```
 - 预测过程：在**run_pred.sh**文件设置好一些基本参数后，运行```bash run_pred.sh```
