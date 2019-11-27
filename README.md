@@ -10,6 +10,12 @@
 - 编码器： LSTM/BiLSTM, CNN
 - 解码器： LSTM
 
+## 框架/工具
+- Tensorflow >= 1.11
+- Python3.X
+- Pandas
+- Matplotlib
+
 ## 一些超参数配置说明
 ### 具体配置可参见```configs/config.json```文件
 ![configs](./figures/configs.jpg)
