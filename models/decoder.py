@@ -52,7 +52,7 @@ def lstm_decoder(model_configs,
             def dec_attn_cell():
                 return tf.contrib.rnn.DropoutWrapper(dec_lstm_cell(), output_keep_prob=model_configs.dec_keep_prob)
 
-        if model_configs.enc_num_layers > 1:
+        if model_configs.enc_num_layers > 1 and model_configs.encoder_type != 'cnn':
             cell_dec = tf.contrib.rnn.MultiRNNCell([dec_attn_cell() for _ in range(model_configs.enc_num_layers)],
                                                    state_is_tuple=True)
         else:

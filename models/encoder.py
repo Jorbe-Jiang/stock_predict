@@ -29,17 +29,32 @@ def encoder(embedding_inputs, inputs_sequence_length, model_configs, is_training
         return outputs, states
     elif model_configs.encoder_type == 'cnn':
         assert model_configs.max_pooling == 1
-        emb_size = tf.shape(embedding_inputs)[-1]
-        conv_outputs = encoder_modules.cnn_encoder(embedding_inputs, emb_size, model_configs.enc_num_filters,
-                                                   filter_sizes=model_configs.enc_filter_sizes,
-                                                   max_pooling=model_configs.max_pooling, name=name + '_cnn')
+        if model_configs.enc_num_layers > 1:
+            assert model_configs.enc_num_layers == len(model_configs.enc_filter_sizes)
+        dec_inputs = embedding_inputs
+        conv_outputs = None
+        for i in range(model_configs.enc_num_layers):
+            emb_size = tf.shape(dec_inputs)[-1]
+            conv_outputs = encoder_modules.cnn_encoder(dec_inputs, emb_size, model_configs.enc_num_filters,
+                                                       filter_sizes=model_configs.enc_filter_sizes[i],
+                                                       max_pooling=model_configs.max_pooling,
+                                                       name=name + '_cnn_' + str(i))
+            # [B, len(enc_filter_sizes[i]), enc_num_filters]
+            conv_outputs = tf.concat(conv_outputs, axis=1)
+            dec_inputs = conv_outputs
 
-        # [B, len(enc_filter_sizes), enc_num_filters]
-        outputs = tf.concat(conv_outputs, axis=1)
+        # emb_size = tf.shape(embedding_inputs)[-1]
+        # conv_outputs = encoder_modules.cnn_encoder(embedding_inputs, emb_size, model_configs.enc_num_filters,
+        #                                            filter_sizes=model_configs.enc_filter_sizes,
+        #                                            max_pooling=model_configs.max_pooling, name=name + '_cnn')
+        #
+        # # [B, len(enc_filter_sizes), enc_num_filters]
+        # conv_outputs = tf.concat(conv_outputs, axis=1)
+
         # [B, enc_num_filters]
-        _states = tf.reduce_max(outputs, axis=1, keepdims=False)
+        _states = tf.reduce_max(conv_outputs, axis=1, keepdims=False)
         states = tf.contrib.rnn.LSTMStateTuple(c=_states, h=_states)
-        return outputs, states
+        return conv_outputs, states
     elif model_configs.encoder_type == 'transformer':
         all_encoder_layers, sequence_output = encoder_modules.transformer_encoder(bert_config, is_training,
                                                                                   embedding_inputs, input_ids,

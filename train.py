@@ -227,7 +227,6 @@ def inverse_scale_value(scaled_value, dataset_min_value, dataset_max_value, min=
 def get_iterator(model_configs, raw_data):
     """Return the data iterator."""
     iterator = data_loader.data_iterator(model_configs, raw_data)
-
     return iterator
 
 
@@ -445,7 +444,6 @@ def evaluate_model(model_configs, data, train_dir, log):
                         pred_data['Map_Preds'][i] = inverse_scaled_map_pred_price
 
                     pred_data['Map_Preds'][len(predictions)-1] = pred_data['Map_Preds'][len(price_map_sequence)-1]  # 确保长度和Preds一样
-
                     pred_data['Date'] = pd.to_datetime(pred_data.Date, format='%Y-%m-%d')
                     pred_data.index = pred_data['Date']
 
@@ -480,7 +478,6 @@ def evaluate_model(model_configs, data, train_dir, log):
                 evaluation_utils.generate_logs(model_configs, sess, model, log, eval_feed)
 
             evaluation_utils.print_and_log_losses(log, step, avg_epoch_loss)
-
             summary_str = sess.run(model.merge_summaries_op, feed_dict=eval_feed)
             sv.SummaryComputed(sess, summary_str)
 
