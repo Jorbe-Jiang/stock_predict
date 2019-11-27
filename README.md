@@ -11,7 +11,7 @@
 - 解码器： LSTM
 
 ## 一些超参数配置说明
-###具体配置可参见```configs/config.json```文件
+### 具体配置可参见```configs/config.json```文件
 ![configs](./figures/configs.jpg)
 - encoder_type: 编码器模型结构类型
     - values(str): rnn, birnn, cnn
@@ -105,7 +105,7 @@
 
 ## 一些主要文件夹目录以及文件说明：
 
-      data：实验数据, 里面有**黄山旅游**股票的最近几年股价数据
+      data：实验数据, 里面有黄山旅游股票的最近几年股价数据
       ckpts: 存放训练好的模型checkpoints文件目录
       configs/config.json: 一些超参数配置文件
       run_train.sh: 启动训练bash文件
@@ -119,5 +119,5 @@
 ## 代码运行说明
 - 训练过程：在**configs/config.json**设置好超参数，以及在**run_train.sh**文件设置好一些基本参数后，运行```bash run_train.sh```
 - 验证过程：在**run_valid.sh**文件设置好一些基本参数后，运行```bash run_valid.sh```
-    ```验证过程结束后，在**/ckpts/huangshan/plots/**文件夹里查看在验证集上预测的结果, **predictions.txt**文件会记录具体的预测值，映射值以及ground truth value```
+    ```验证过程结束后，在/ckpts/huangshan/plots/文件夹里查看在验证集上预测的结果, predictions.txt文件会记录具体的预测值，映射值以及ground truth value```
 - 预测过程：在**run_pred.sh**文件设置好一些基本参数后，运行```bash run_pred.sh```
