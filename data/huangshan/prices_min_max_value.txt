@@ -1,0 +1,6 @@
+dataset_open_price_max_value: 32.65, dataset_open_price_min_value: 8.5
+dataset_high_price_max_value: 33.39, dataset_high_price_min_value: 8.76
+dataset_low_price_max_value: 32.0, dataset_low_price_min_value: 8.46
+dataset_vol_price_max_value: 227275.7, dataset_vol_price_min_value: 1933.23
+dataset_amount_price_max_value: 376899.9, dataset_amount_price_min_value: 2155.45
+dataset_close_price_max_value: 32.6, dataset_close_price_min_value: 8.58
